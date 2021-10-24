@@ -17,7 +17,7 @@
  2021-10-05 RSz, AGH UST - test modified to send all the data on negedge clk
  and check the data on the correct clock edge (covergroup on posedge
  and scoreboard on negedge). Scoreboard and coverage removed.
- 2021-10-16 JIwanicka, AGH UST - test modified to match with mtm_Alu DUT.
+ 2021-10-16 Joanna Iwanicka, AGH UST - test modified to match with mtm_Alu DUT.
  */
 module top;
 
