@@ -39,9 +39,6 @@ bit                sin;
 wire        	   sout;
 operation_t        op_set;
 
-//assign op = op_set;
-
-//string             test_result = "PASSED";
 bit [10:0] ctl_out;
 bit [98:0] Data;
 bit [54:0] data_out;
@@ -52,7 +49,7 @@ byte a;
 // DUT instantiation
 //------------------------------------------------------------------------------
 
-	mtm_Alu DUT (.clk, .rst_n, .sin, .sout);
+mtm_Alu DUT (.clk, .rst_n, .sin, .sout);
 	
 
 //------------------------------------------------------------------------------
@@ -253,9 +250,7 @@ end : tester
 
 //------------------------------------------------------------------------------
 task reset_alu();
-    `ifdef DEBUG
     $display("%0t DEBUG: reset_alu", $time);
-    `endif
     rst_n = 1'b0;
     @(negedge clk);
     rst_n = 1'b1;
