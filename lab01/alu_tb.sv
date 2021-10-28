@@ -39,10 +39,11 @@ bit                sin;
 wire        	   sout;
 operation_t        op_set;
 
-bit [10:0] ctl_out;
+//bit [10:0] ctl_out;
 bit [98:0] Data;
 bit [54:0] data_out;
 bit [31:0] expected, result; 
+bit [2:0] expected_error;
 byte a;
 
 //------------------------------------------------------------------------------
@@ -51,6 +52,7 @@ byte a;
 
 mtm_Alu DUT (.clk, .rst_n, .sin, .sout);
 	
+string             test_result = "PASSED";
 
 //------------------------------------------------------------------------------
 // Clock generator
@@ -63,10 +65,6 @@ end
 
 //------------------------------------------------------------------------------
 // Tester
-//------------------------------------------------------------------------------
-
-//---------------------------------
-// Random data generation functions
 
 function operation_t get_op();
     bit [2:0] op_choice;
@@ -74,7 +72,7 @@ function operation_t get_op();
     case (op_choice)
         3'b000 : return AND_op;
         3'b001 : return OR_op;
-        3'b010 : return NO_op;
+        3'b010 : return ERROR_op;
         3'b011 : return ERROR_op;
         3'b100 : return ADD_op;
         3'b101 : return SUB_op;
@@ -114,9 +112,9 @@ endfunction : get_ctl_packet
 
 
 //---------------------------------
-function [98:0] get_packet(input [2:0] op_set);  //get packet with data 
+function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);  //get packet with data 
 	bit [10:0] Data1,Data2,Data3,Data4,Data5,Data6,Data7,Data8,Data9;
-    Data1      = get_data_packet(); 
+    Data1      = get_data_packet(); //TODO it better
     Data2      = get_data_packet();
     Data3      = get_data_packet();
     Data4      = get_data_packet();
@@ -124,7 +122,47 @@ function [98:0] get_packet(input [2:0] op_set);  //get packet with data
     Data6      = get_data_packet();
     Data7      = get_data_packet();
     Data8      = get_data_packet();
-    Data9      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);
+	case(expected_error)   //TODO it better
+        3'b000:begin //No error
+            Data9      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);
+            end
+        3'b001:begin //Error OP
+            Data9      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);        
+            end
+        3'b010:begin //Error CRC
+            Data9      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);
+        	Data9[4:1] = 4'($random);
+            end
+        3'b100:begin //Error Data
+            Data8      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);
+	        Data9[10:0] = 11'b11111111111;
+        	end
+        3'b111:begin //Error all 1
+        	Data1[8:1] =8'hFF; 
+	        Data2[8:1] =8'hFF;  
+	        Data3[8:1] =8'hFF;  
+	        Data4[8:1] =8'hFF;  
+	        Data5[8:1] =8'hFF;  
+	        Data6[8:1] =8'hFF;  
+	        Data7[8:1] =8'hFF;  
+	        Data8[8:1] =8'hFF;  
+	        Data9      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);	        
+        end
+        3'b011:begin //Error all 0
+        	Data1[8:1] =8'b0; 
+	        Data2[8:1] =8'b0; 
+	        Data3[8:1] =8'b0; 
+	        Data4[8:1] =8'b0; 
+	        Data5[8:1] =8'b0; 
+	        Data6[8:1] =8'b0; 
+	        Data7[8:1] =8'b0; 
+	        Data8[8:1] =8'b0; 
+	        Data9      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);	        
+            end
+        default:begin 
+	        Data9      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);	     
+            end
+    endcase
     return   {Data1, Data2, Data3, Data4, Data5, Data6, Data7, Data8, Data9};   
 endfunction : get_packet
 
@@ -157,7 +195,7 @@ function bit [31:0] get_expected(input [98:0] Data, input [2:0] op_set);  //send
         ADD_op : result = A + B;
         SUB_op : result = B - A;
         default: begin
-            $display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %s", $time, op_set);
+            //$display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %s", $time, op_set);
         end
 	endcase
 	return result;
@@ -170,26 +208,59 @@ initial begin : tester
     reset_alu();
     repeat (100) begin : tester_main
         @(negedge clk);
-        op_set 	   = get_op();
-	    Data       = get_packet(op_set);
+        op_set 	   = get_op();	    
+	    expected_error = 3'b000;
+	    data_out = 55'b0;
+	    test_result = "PASSED";
         case (op_set) // handle the start signal
-            NO_op: begin : case_no_op
-                @(negedge clk);
-            end
+            //NO_op: begin : case_no_op
+                //@(negedge clk);
+            //end
             RST_op: begin : case_rst_op
                 reset_alu();
             end
             default: begin : case_default
 	            if (op_set == ERROR_op) begin
-		            a = $urandom_range(0,98);
-		            Data[a] = ~Data[a]; 
-		        end
-				for(int i = $size(Data)-1; i >= 0 ; i--) begin
+		            bit [2:0] zero_ones;
+    				zero_ones = 3'($random);
+		            case(zero_ones)
+			            3'b000:begin
+				            expected_error = 3'b011; //Error all 0
+				            end
+			            3'b001:begin
+				            expected_error = 3'b001; //Error OP
+				            end
+			            3'b010:begin
+				            expected_error = 3'b010;  //Error CRC
+				            end
+			            3'b100:begin
+				            expected_error = 3'b100; //Error Data
+			            	end
+			            3'b111:begin
+				            expected_error = 3'b111; //Error all 1
+				            end
+			            default:begin
+				            expected_error = 3'b110;
+				            end
+		            endcase
+	            end
+	            
+	            Data = get_packet(op_set,expected_error);
+	            
+	            if (expected_error == 3'b100) begin
+		            a = 11;
+	            	end
+	            else begin
+		            a = 0;
+		        	end
+	            
+				for(int i = $size(Data)-1; i >= a ; i--) begin // TODO: Function!
 					@(negedge clk);
 					sin <= Data[i];					
 				end
+
 				@(negedge sout);
-				for(int j = $size(data_out)-1; j >= 0 ; j--) begin
+				for(int j = $size(data_out)-1; j >= 0 ; j--) begin // TODO: Function!
 					@(negedge clk);
 					data_out[j] <= sout;					
 				end				
@@ -201,47 +272,41 @@ initial begin : tester
 	                expected = get_expected(Data, op_set);
 	                result = {data_out[52:45],data_out[41:34],data_out[30:23],data_out[19:12]};	                
 	                if(result === expected) begin
-                        $display("Test passed");
+                        $display("Test passed - CALC OK");
                     end
-                    else begin
-                        $display("Test FAILED");
-                        $display("Expected: %d  received: %d", expected, result);
-                    end;
+	                else begin
+		                if(expected_error == 3'b000) begin
+		                	$display("Test FAILED - CALC NOT OK");
+                        	$display("Expected: %d  received: %d", expected, result);
+			                test_result = "FAILED";
+			            end
+		                else begin
+		                	$display("Test passed - CALC NOT OK"); 
+			                test_result = "FAILED";
+			            end
+		            end
                 end
                 else begin
-	                casez(data_out[52:45])
-		                8'b???????0:begin
-			                $display("ERROR PARITY BIT");
-		                end
-		                8'b11001001:begin
-			                $display("ERROR DATA");
-		                end
-		                8'b10100101:begin
-			                $display("ERROR CRC");
-		                end
-		                8'b10010011:begin
-			                $display("ERROR OP CODE");
-		                end
-		                8'b11101101:begin
-			                $display("ERROR DATA AND ERROR CRC");
-		                end
-		                8'b10110111:begin
-			                $display("ERROR CRC AND ERROR OP CODE");
-		                end
-		                8'b11011011:begin
-			                $display("ERROR DATA AND ERROR OP CODE");
-		                end
-		                8'b11111111:begin
-			                $display("ALL ERROR FLAGS");
-		                end
-		                default: begin
-			                $display("UNKNOWN ERROR");
-			            end	                    	
-	                endcase
-                end
-                
-                ctl_out = {data_out[10:0]};
-                
+	                if(expected_error != 3'b000)
+		                case(data_out[52:45])
+			                8'b11001001:begin
+				                $display("Test passed - ERROR DATA");
+			                end
+			                8'b10100101:begin
+				                $display("Test passed - ERROR CRC");
+			                end
+			                8'b10010011:begin
+				                $display("Test passed - ERROR OP CODE");
+			                end
+			                default: begin
+				                $display("Test passed - UNKNOWN ERROR");
+				            end	                    	
+		                endcase
+	                else begin
+		                $display("Test FAILED - unexpected error");
+	                    test_result = "FAILED";
+		           end
+                end                 
             end            
         endcase 
     end
@@ -250,7 +315,7 @@ end : tester
 
 //------------------------------------------------------------------------------
 task reset_alu();
-    $display("%0t DEBUG: reset_alu", $time);
+    //$display("%0t DEBUG: reset_alu", $time);
     rst_n = 1'b0;
     @(negedge clk);
     rst_n = 1'b1;
