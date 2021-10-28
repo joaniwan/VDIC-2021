@@ -275,15 +275,10 @@ initial begin : tester
                         $display("Test passed - CALC OK");
                     end
 	                else begin
-		                if(expected_error == 3'b000) begin
-		                	$display("Test FAILED - CALC NOT OK");
-                        	$display("Expected: %d  received: %d", expected, result);
-			                test_result = "FAILED";
-			            end
-		                else begin
-		                	$display("Test passed - CALC NOT OK"); 
-			                test_result = "FAILED";
-			            end
+	                	$display("Test FAILED - CALC NOT OK");
+                    	$display("Expected: %d  received: %d", expected, result);
+		                test_result = "FAILED";
+	
 		            end
                 end
                 else begin

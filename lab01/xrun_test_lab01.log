@@ -1,4 +1,4 @@
-TOOL:	xrun	19.09-s003: Started on Oct 28, 2021 at 02:37:43 CEST
+TOOL:	xrun	19.09-s003: Started on Oct 28, 2021 at 14:02:38 CEST
 xrun
 	-F tb.f
 		-F ./dut.f
@@ -88,6 +88,6 @@ Test passed - ERROR OP CODE
 Test passed - ERROR OP CODE
 Test passed - CALC OK
 Simulation complete via $finish(1) at time 236660 NS + 0
-./alu_tb.sv:313     $finish;
+./alu_tb.sv:308     $finish;
 xcelium> exit
-TOOL:	xrun	19.09-s003: Exiting on Oct 28, 2021 at 02:37:44 CEST  (total: 00:00:01)
+TOOL:	xrun	19.09-s003: Exiting on Oct 28, 2021 at 14:02:38 CEST  (total: 00:00:00)
