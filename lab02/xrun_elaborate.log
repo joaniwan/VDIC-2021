@@ -1,4 +1,4 @@
-TOOL:	xrun	19.09-s003: Started on Nov 02, 2021 at 21:18:24 CET
+TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 14:24:16 CET
 xrun
 	-elaborate
 	-l xrun_elaborate.log
@@ -31,11 +31,11 @@ xrun
 			streams:   7, words:  3972
 			streams:   9, words: 25661
 			streams:   7, words:  3321
-		worklib.top:sv <0x0446645f>
-			streams:  23, words: 81399
+		worklib.top:sv <0x59869d08>
+			streams:  23, words: 78274
 byte a;
      |
-xmelab: *W,COVUTA (./alu_tb.sv,49|5): Toggle coverage is not supported for SystemVerilog integer, real, string, dynamic array, sparse memory and reference ports. It is also not supported for VHDL multi-dimensional array and array of record. There may also be other such objects in the design.
+xmelab: *W,COVUTA (./alu_tb.sv,48|5): Toggle coverage is not supported for SystemVerilog integer, real, string, dynamic array, sparse memory and reference ports. It is also not supported for VHDL multi-dimensional array and array of record. There may also be other such objects in the design.
 	Building instance specific data structures.
 	Performing constant object marking (COM) analysis.
 	Loading native compiled code:     .................... Done
@@ -52,4 +52,4 @@ xmelab: *W,COVUTA (./alu_tb.sv,49|5): Toggle coverage is not supported for Syste
 		Covergroup Instances:    0       3
 		Simulation timescale:  1ps
 	Writing initial simulation snapshot: worklib.top:sv
-TOOL:	xrun	19.09-s003: Exiting on Nov 02, 2021 at 21:18:25 CET  (total: 00:00:01)
+TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 14:24:16 CET  (total: 00:00:00)

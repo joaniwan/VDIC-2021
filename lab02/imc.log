@@ -2,5 +2,5 @@ imc: *I,RUNLD: Successfully loaded run /home/student/jiwanicka/VDIC/lab02/cov_wo
 imc: *W,REPDEP: This is a legacy report and no future enhancement is planned for this report. It is recommended that you use the 'report_metrics' command and generate a dynamic report.
 name                                     Overall Average      Overall Covered      Code Average         Code Covered         Fsm Average          Fsm Covered          Functional Average   Functional Covered   
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-top                                      94.83%               89.88% (728/810)     90.69%               89.23% (663/743)     n/a                  n/a                  98.96%               97.01% (65/67)       
+top                                      95.39%               90.21% (728/807)     90.78%               89.35% (663/742)     n/a                  n/a                  100.00%              100.00% (65/65)      
 |--DUT                                   98.21%               98.21% (55/56)       98.21%               98.21% (55/56)       n/a                  n/a                  n/a                  n/a                  

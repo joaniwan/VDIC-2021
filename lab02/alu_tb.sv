@@ -25,9 +25,8 @@ module top;
 // type and variable definitions
 //------------------------------------------------------------------------------
 
-typedef enum bit[2:0] { NO_op   = 3'b010, //NO_op = 3'b011,
-						ERROR_op = 3'b011,
-						RST_op 	= 3'b110,                  /// 3'b111},
+typedef enum bit[2:0] { ERROR_op   = 3'b010, 
+						RST_op 	= 3'b110,		/// 3'b111},
 						AND_op  = 3'b000,
 						OR_op   = 3'b001,
     					ADD_op  = 3'b100,
@@ -67,7 +66,7 @@ covergroup op_cov;
 
     coverpoint op_set {
         // #A1 test all operations
-        bins A1_single_cycle[] = {ADD_op, OR_op, AND_op, SUB_op, RST_op, NO_op};
+        bins A1_single_cycle[] = {ADD_op, OR_op, AND_op, SUB_op, RST_op};
 
         // #A2 test all operations after reset
         bins A2_rst_opn[]      = (RST_op => ADD_op, OR_op, AND_op, SUB_op);
@@ -79,7 +78,7 @@ covergroup op_cov;
         bins A4_twoops[]       = (ADD_op, OR_op, AND_op, SUB_op [* 2]);
 	    
 	    // #A5 simulate unused OP codes
-        bins A5_error[]       = {ERROR_op, NO_op};
+        bins A5_error[]       = {ERROR_op};
     }
 
 endgroup
@@ -90,7 +89,7 @@ covergroup zeros_or_ones_on_ops;
     option.name = "cg_zeros_or_ones_on_ops";
 
     all_ops : coverpoint op_set {
-        ignore_bins null_ops = {RST_op, NO_op, ERROR_op};
+        ignore_bins null_ops = {RST_op, ERROR_op};
     }
 
 	
@@ -480,11 +479,15 @@ always @(negedge clk) begin : scoreboard
         if(data_out[54:53] == 2'b00 )begin
             result = {data_out[52:45],data_out[41:34],data_out[30:23],data_out[19:12]};	                
             assert(result === predicted_result) begin
+	            `ifdef DEBUG
                 $display("Test passed - CALC OK");
+	            `endif
             end
             else begin
+	            `ifdef DEBUG
             	$display("Test FAILED - CALC NOT OK");
             	$display("Expected: %d  received: %d", expected, result);
+	            `endif
                 test_result = "FAILED";
             end;
         end
@@ -492,20 +495,30 @@ always @(negedge clk) begin : scoreboard
             assert(expected_error != 3'b000)
                 case(data_out[52:45])
 	                8'b11001001:begin
+		                `ifdef DEBUG
 		                $display("Test passed - ERROR DATA");
+		                `endif
 	                end
 	                8'b10100101:begin
+		                `ifdef DEBUG
 		                $display("Test passed - ERROR CRC");
+		                `endif
 	                end
 	                8'b10010011:begin
+		                `ifdef DEBUG
 		                $display("Test passed - ERROR OP CODE");
+		                `endif
 	                end
 	                default: begin
+		                `ifdef DEBUG
 		                $display("Test passed - UNKNOWN ERROR");
+		                `endif
 		            end	                    	
                 endcase
             else begin
+	            `ifdef DEBUG
                 $display("Test FAILED - unexpected error");
+	            `endif
                 test_result = "FAILED";
             end;
         end          
