@@ -98,4 +98,6 @@ Test passed - ERROR OP CODE
 Test passed - CALC OK
 Simulation complete via $finish(1) at time 236660 NS + 0
 ./alu_tb.sv:313     $finish;
-xcelium> 
+xcelium> ^C
+xcelium> exit
+TOOL:	xrun	19.09-s003: Exiting on Oct 28, 2021 at 15:31:51 CEST  (total: 01:31:05)
