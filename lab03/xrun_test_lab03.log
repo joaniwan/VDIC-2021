@@ -1,0 +1,210 @@
+TOOL:	xrun	19.09-s003: Started on Nov 14, 2021 at 18:30:26 CET
+xrun
+	-F tb.f
+		-F ./dut.f
+			mtm_Alu.vp
+		alu_pkg.sv
+		alu_bfm.sv
+		tester.sv
+		coverage.sv
+		scoreboard.sv
+		top.sv
+	-v93
+	-define DEBUG
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	+nowarnCOVUTA
+	-xmlibdirname INCA_libs
+	+overwrite
+	-nocopyright
+	-l xrun_test_lab03.log
+Loading snapshot worklib.top:sv .................... Done
+xcelium> source /cad/XCELIUM1909/tools/xcelium/files/xmsimrxmsim: *E,TRTOVF: simulated time overflow.
+          File: ./alu_bfm.sv, line = 38, pos = 8
+         Scope: top.bfm
+          Time: 9223372036850 NS + 0
+
+./alu_bfm.sv:38         #10;
+xcelium> exit
+Test PASSED.
+TOOL:	xrun	19.09-s003: Exiting on Nov 15, 2021 at 09:32:52 CET  (total: 16:41:34)
+BUG: testingg 1 1
+280000 DEBUG: testingg 0 1
+300000 DEBUG: testingg 0 1
+320000 DEBUG: testingg 1 1
+340000 DEBUG: testingg 1 1
+360000 DEBUG: testingg 1 1
+380000 DEBUG: testingg 1 1
+400000 DEBUG: testingg 1 1
+420000 DEBUG: testingg 1 1
+440000 DEBUG: testingg 1 1
+460000 DEBUG: testingg 1 1
+480000 DEBUG: testingg 1 1
+500000 DEBUG: testingg 0 1
+520000 DEBUG: testingg 0 1
+540000 DEBUG: testingg 1 1
+560000 DEBUG: testingg 0 1
+580000 DEBUG: testingg 0 1
+600000 DEBUG: testingg 0 1
+620000 DEBUG: testingg 1 1
+640000 DEBUG: testingg 1 1
+660000 DEBUG: testingg 0 1
+680000 DEBUG: testingg 1 1
+700000 DEBUG: testingg 1 1
+720000 DEBUG: testingg 0 1
+740000 DEBUG: testingg 0 1
+760000 DEBUG: testingg 0 1
+780000 DEBUG: testingg 0 1
+800000 DEBUG: testingg 0 1
+820000 DEBUG: testingg 1 1
+840000 DEBUG: testingg 0 1
+860000 DEBUG: testingg 0 1
+880000 DEBUG: testingg 1 1
+900000 DEBUG: testingg 0 1
+920000 DEBUG: testingg 1 1
+940000 DEBUG: testingg 0 1
+960000 DEBUG: testingg 0 1
+980000 DEBUG: testingg 0 1
+1000000 DEBUG: testingg 0 1
+1020000 DEBUG: testingg 0 1
+1040000 DEBUG: testingg 0 1
+1060000 DEBUG: testingg 1 1
+1080000 DEBUG: testingg 1 1
+1100000 DEBUG: testingg 0 1
+1120000 DEBUG: testingg 1 1
+1140000 DEBUG: testingg 1 1
+1160000 DEBUG: testingg 0 1
+1180000 DEBUG: testingg 0 1
+1200000 DEBUG: testingg 0 1
+1220000 DEBUG: testingg 0 1
+1240000 DEBUG: testingg 1 1
+1260000 DEBUG: testingg 1 1
+1280000 DEBUG: testingg 1 1
+1300000 DEBUG: testingg 1 1
+1320000 DEBUG: testingg 0 1
+1340000 DEBUG: testingg 1 1
+1360000 DEBUG: testingg 1 1
+1380000 DEBUG: testingg 0 1
+1400000 DEBUG: testingg 0 1
+1420000 DEBUG: testingg 1 1
+1440000 DEBUG: testingg 0 1
+1460000 DEBUG: testingg 0 1
+1480000 DEBUG: testingg 0 1
+1500000 DEBUG: testingg 1 1
+1520000 DEBUG: testingg 1 1
+1540000 DEBUG: testingg 0 1
+1560000 DEBUG: testingg 0 1
+1580000 DEBUG: testingg 1 1
+1600000 DEBUG: testingg 0 1
+1620000 DEBUG: testingg 0 1
+1640000 DEBUG: testingg 1 1
+1660000 DEBUG: testingg 1 1
+1680000TOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:32:50 CET  (total: 01:18:59)
+00 DEBUG: testingg 1 1
+1760000 DEBUG: testingg 1 1
+1780000 DEBUG: testingg 0 1
+1800000 DEBUG: testingg 1 1
+1820000 DEBUG: testingg 0 1
+1840000 DEBUG: testingg 1 1
+1860000 DEBUG: testingg 0 1
+1880000 DEBUG: testingg 1 TOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:32:50 CET  (total: 00:47:32)
+0 1
+1960000 DEBUG: testingg 0 1
+1980000 DEBUG: testingg 1 1
+2000000 DEBUG: testingg 0 1
+2020000 DEBUG: testingg 1 1
+TOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:32:50 CET  (total: 00:46:50)
+ on Nov 14, 2021 at 18:32:50 CET  (total: 00:36:37)
+:04:03)
+G: testingg 0 TOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:32:50 CET  (total: 00:02:24)
+
+200000 DEBUG: testingg 0 1
+220000 DEBUG: testingg 0 1
+240000 DEBUG: testingg 1 1
+260000 DEBUG: testingg 1 1
+280000 DEBUG: testingg 0 1
+300000 DEBUG: testingg 0 1
+320000 DEBUG: testingg 1 1
+340000 DEBUG: testingg 1 1
+360000 DEBUG: testingg 1 1
+380000 DEBUG: testingg 1 1
+400000 DEBUG: testingg 1 1
+420000 DEBUG: testingg 1 1
+440000 DEBUG: testingg 1 1
+460000 DEBUG: testingg 1 1
+480000 DEBUG: testingg 1 1
+500000 DEBUG: testingg 0 1
+520000 DEBUG: testinTOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:32:50 CET  (total: 00:53:25)
+048 (<unknown>).
+G: testingg 0 1
+620000 DEBUG: testingg 1 1
+640000 DEBUG: testingg 1 1
+660000 DEBUG: testingg 0 1
+680000 DEBUG: testingg 1 1
+700000 DEBUG: testingg 1 1
+720000 DEBUG: testingg 0 1
+740000 DEBUG: testingg 0 1
+760000 DEBUG: testingg 0 1
+780000 DEBUG: testingg 0 1
+800000 DEBUG: testingg 0 1
+820000 DEBUG: testingg 1 1
+840000 DEBUG: testingg 0 1
+860000 DEBUG: testingg 0 1
+880000 DEBUG: testingg 1 1
+90TOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:32:50 CET  (total: 00:52:51)
+000 DEBUG: testingg 0 1
+980000 DEBUG: testingg 0 1
+1000000 DEBUG: testingg 0 1
+1020000 DEBUG: testingg 0 1
+1040000 DEBUG: testingg 0 1
+1060000 DEBUG: testingg 1 1
+1080000 DEBUG: testingg 1 1
+1100000 DEBUG: testingg 0 1
+1120000 DEBUG: testingg 1 1
+1140000 DEBUG: testingg 1 1
+1160000 DEBUG: testingg 0 1
+1180000 DEBUG: testingg 0 1
+1200000 DEBUG: testingg 0 1
+1220000 DEBUG: testingg 0 1
+1240000 DEBUG: testingg 1 1
+1260000 DEBUG: testingg 1 1
+1280000 DEBUG: testingg 1 1
+1300000 DEBUG: testingg 1 1
+1320000 DEBUG: testingg 0 1
+1340000 DEBUG: testingg 1 1
+1360000 DEBUG: testingg 1 1
+1380000 DEBUG: testingg 0 1
+1400000 DEBUG: testingg 0 1
+1420000 DEBUG: testingg 1 1
+1440000 DEBUG: testingg 0 1
+1460000 DEBUG: testingg 0 1
+1480000 DEBUG: testingg 0 1
+1500000 DEBUG: testingg 1 1
+1520000 DEBUG: testingg 1 1
+1540000 DEBUG: testingg 0 1
+1560000 DEBUG: testingg 0 1
+1580000 DEBUG: testingg 1 1
+1600000 DEBUG: testingg 0 1
+1620000 DEBUG: testingg 0 1
+1640000 DEBUG: testingg 1 1
+1660000 DEBUG: testingg 1 1
+1680000 DEBUG: testingg 0 1
+1700000 DEBUG: testingg 0 1
+1720000 DEBUG: testingg 0 1
+1740000 DEBUG: testingg 1 1
+1760000 DEBUG: testingg 1 1
+1780000 DEBUG: testingg 0 1
+1800000 DEBUG: testingg 1 1
+1820000 DEBUG: testingg 0 1
+1840000 DEBUG: testingg 1 1
+1860000 DEBUG: testingg 0 1
+1880000 DEBUG: testinTOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:32:50 CET  (total: 00:58:36)
+ingg 0 1
+1960000 DEBUG: testingg 0 1
+1980000 DEBUG: testingg 1 1
+2000000 DEBUG: testingg 0 1
+2020000 DEBUG: testingg 1 1
+2020000 DEBUG: testingg 1
+2020000 DEBUG: testingg 1
+xmsim: *W,NCTERM: Simulation received SIGTERM signal from process 13792, user id 4048 (<unknown>).

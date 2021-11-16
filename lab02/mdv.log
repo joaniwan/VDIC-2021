@@ -164,3 +164,8 @@
 [INFO ] 2021-11-04 14:21:25,407 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 45609
 [INFO ] 2021-11-04 14:24:21,475 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 38932
 [INFO ] 2021-11-04 14:24:25,454 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 46329
+[INFO ] 2021-11-11 12:02:05,458 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 39106
+[INFO ] 2021-11-11 12:02:09,763 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 34590
+[INFO ] 2021-11-11 12:06:40,330 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 42556
+[INFO ] 2021-11-11 12:06:44,592 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 44476
+[INFO ] 2021-11-11 12:08:25,078 [com.cadence.mdv.imc.Main] [main] - Binding debug tools http on port: 39336

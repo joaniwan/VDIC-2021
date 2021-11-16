@@ -1,4 +1,4 @@
-TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 14:24:16 CET
+TOOL:	xrun	19.09-s003: Started on Nov 11, 2021 at 12:06:35 CET
 xrun
 	-F tb.f
 		-F ./dut.f
@@ -33,4 +33,4 @@ coverage setup:
 coverage files:
   model(design data) :  ./cov_work/scope/icc_336cca88_77a8929b.ucm
   data               :  ./cov_work/scope/lab02/icc_336cca88_77a8929b.ucd
-TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 14:24:17 CET  (total: 00:00:01)
+TOOL:	xrun	19.09-s003: Exiting on Nov 11, 2021 at 12:06:36 CET  (total: 00:00:01)

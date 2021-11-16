@@ -1,0 +1,62 @@
+TOOL:	xrun	19.09-s003: Started on Nov 14, 2021 at 18:30:26 CET
+xrun
+	-elaborate
+	-l xrun_elaborate.log
+	-F tb.f
+		-F ./dut.f
+			mtm_Alu.vp
+		alu_pkg.sv
+		alu_bfm.sv
+		tester.sv
+		coverage.sv
+		scoreboard.sv
+		top.sv
+	-v93
+	-define DEBUG
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	+nowarnCOVUTA
+	-xmlibdirname INCA_libs
+	+overwrite
+	-nocopyright
+		Caching library 'worklib' ....... Done
+	Elaborating the design hierarchy:
+	Top level design units:
+		alu_pkg
+		top
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+			streams:   7, words:  3942
+			streams:   9, words: 25571
+			streams:   7, words:  3261
+		worklib.scoreboard:sv <0x33731852>
+			streams:   4, words:  7314
+		worklib.coverage:sv <0x49d82bc6>
+			streams:   7, words:  1708
+		worklib.tester:sv <0x5ca1de38>
+			streams:   8, words: 44461
+		worklib.top:sv <0x5eb01af6>
+			streams:   4, words:   574
+		worklib.alu_bfm:sv <0x0cefb582>
+			streams:   5, words:  4601
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 8       8
+		Interfaces:              1       1
+		Verilog packages:        1       1
+		Registers:             125     125
+		Scalar wires:            9       -
+		Vectored wires:          2       -
+		Always blocks:          13      13
+		Initial blocks:          4       4
+		Final blocks:            1       1
+		Cont. assignments:       0       1
+		Pseudo assignments:      4       4
+		Assertions:              2       2
+		Covergroup Instances:    0       3
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.top:sv
+TOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:30:26 CET  (total: 00:00:00)

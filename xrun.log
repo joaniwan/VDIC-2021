@@ -1,25 +1,46 @@
 xrun: 19.09-s003: (c) Copyright 1995-2019 Cadence Design Systems, Inc.
-TOOL:	xrun	19.09-s003: Started on Nov 04, 2021 at 14:24:09 CET
+TOOL:	xrun	19.09-s003: Started on Nov 14, 2021 at 18:27:09 CET
 xrun
 	+elaborate
 	+sv
-	-f /home/student/jiwanicka/VDIC/.dvt/lab02.build
-		-F lab02/tb.f
-			-F lab02/dut.f
+	-f /home/student/jiwanicka/VDIC/.dvt/lab03.build
+		-F lab03/tb.f
+			-F lab03/dut.f
 				mtm_Alu.vp
-			alu_tb.sv
-file: lab02/mtm_Alu.vp
+			alu_pkg.sv
+			alu_bfm.sv
+			tester.sv
+			coverage.sv
+			scoreboard.sv
+			top.sv
+file: lab03/mtm_Alu.vp
 	module worklib.mtm_Alu:vp
 		errors: 0, warnings: 0
 		errors: 0, warnings: 0
 		errors: 0, warnings: 0
 		errors: 0, warnings: 0
-file: lab02/alu_tb.sv
+file: lab03/alu_pkg.sv
+	package worklib.alu_pkg:sv
+		errors: 0, warnings: 0
+file: lab03/alu_bfm.sv
+	interface worklib.alu_bfm:sv
+		errors: 0, warnings: 0
+file: lab03/tester.sv
+	module worklib.tester:sv
+		errors: 0, warnings: 0
+file: lab03/coverage.sv
+	module worklib.coverage:sv
+		errors: 0, warnings: 0
+file: lab03/scoreboard.sv
+	module worklib.scoreboard:sv
+		errors: 0, warnings: 0
+file: lab03/top.sv
 	module worklib.top:sv
 		errors: 0, warnings: 0
 		Caching library 'worklib' ....... Done
 	Elaborating the design hierarchy:
 	Top level design units:
+		alu_pkg
 		top
 xmelab: *W,DSEMEL: This SystemVerilog design will be simulated as per IEEE 1800-2009 SystemVerilog simulation semantics. Use -disable_sem2009 option for turning off SV 2009 simulation semantics.
 	Building instance overlay tables: .................... Done
@@ -27,21 +48,33 @@ xmelab: *W,DSEMEL: This SystemVerilog design will be simulated as per IEEE 1800-
 			streams:   7, words:  3942
 			streams:   9, words: 25571
 			streams:   7, words:  3261
-		worklib.top:sv <0x045e117f>
-			streams:  22, words: 56423
+		worklib.scoreboard:sv <0x7146f480>
+			streams:   4, words:  4299
+		worklib.coverage:sv <0x43e6a5d5>
+			streams:   7, words:  1708
+		worklib.tester:sv <0x7de0f504>
+			streams:   8, words: 42740
+		worklib.top:sv <0x3c860c62>
+			streams:   4, words:   574
+		worklib.alu_bfm:sv <0x11ece65e>
+			streams:   5, words:  3656
 	Building instance specific data structures.
 	Loading native compiled code:     .................... Done
 	Design hierarchy summary:
 		                 Instances  Unique
-		Modules:                 5       5
-		Registers:             109     109
-		Scalar wires:            7       -
+		Modules:                 8       8
+		Interfaces:              1       1
+		Verilog packages:        1       1
+		Registers:             124     125
+		Scalar wires:            9       -
 		Vectored wires:          2       -
 		Always blocks:          13      13
 		Initial blocks:          4       4
-		Pseudo assignments:      1       1
+		Final blocks:            1       1
+		Cont. assignments:       0       1
+		Pseudo assignments:      4       4
 		Assertions:              2       2
 		Covergroup Instances:    0       3
 		Simulation timescale:  1ps
 	Writing initial simulation snapshot: worklib.top:sv
-TOOL:	xrun	19.09-s003: Exiting on Nov 04, 2021 at 14:24:09 CET  (total: 00:00:00)
+TOOL:	xrun	19.09-s003: Exiting on Nov 14, 2021 at 18:27:10 CET  (total: 00:00:01)
