@@ -43,7 +43,7 @@ end
 task reset_alu();
     rst_n = 1'b0;
 	`ifdef DEBUG
-    //$display("%0t DEBUG: reset_alu", $time);
+    $display("%0t DEBUG: reset_alu", $time);
     `endif
     @(negedge clk);
     rst_n = 1'b1;
@@ -51,42 +51,32 @@ task reset_alu();
 endtask
 
 
-task send_data(input bit [98:0] Data, input operation_t iop, input bit [2:0] expected_error, logic sin);
+task send_data(input bit [98:0] Data, input bit [2:0] expected_error);
+          
+	
+        if (expected_error == 3'b100) begin
+            a = 11;
+        	end
+        else begin
+            a = 0;
+        end      
 
-    op_set = iop;
-
-	case (op_set) 
-            RST_op: begin : case_rst_op
-                reset_alu();
-            end
-            default: begin : case_default
-	            
-	            if (expected_error == 3'b100) begin
-		            a = 11;
-	            	end
-	            else begin
-		            a = 0;
-		        	end
-            	
-				for(int i = $size(Data)-1; i >= a ; i--) begin 					
-					@(negedge clk);
-					sin = Data[i];	
-					`ifdef DEBUG
-					$display("%0t DEBUG: testingg %b %b", $time, sin, bfm.sin);
-					`endif
-				end
-			end
-	endcase
+        for(int i = $size(Data)-1; i >= a ; i--) begin 					
+			@(negedge clk);
+			sin = Data[i];	
+			`ifdef DEBUG
+			//$display("%0t DEBUG: testing", $time);
+			`endif
+		end
 	
 endtask : send_data
 
-task get_data(output bit [55:0] data_out,  input sout);
-
+task get_data(output bit [54:0] data_out);
+	@(negedge bfm.sout);
 	for(int j = $size(data_out)-1; j >= 0 ; j--) begin 
 		@(negedge clk);
 		data_out[j] <= sout;					
-	end				
-	done = 1'b1;
+	end	
 endtask : get_data
 
 endinterface : alu_bfm

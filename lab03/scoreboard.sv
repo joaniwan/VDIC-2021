@@ -27,10 +27,20 @@ function logic [31:0] get_expected(bit [98:0] Data, operation_t op_set);
         OR_op :  result = A | B;
         ADD_op : result = A + B;
         SUB_op : result = B - A;
+		ERROR_op : begin 
+			`ifdef DEBUG
+			$display("%0t Expected error", $time);
+			`endif
+		end
+		RST_op : begin 
+			`ifdef DEBUG
+			$display("%0t Reset operation", $time);
+			`endif
+		end
         default: begin
-            $display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %s", $time, op_set);
+            $display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %b", $time, op_set);
 	        test_result = "FAILED";
-            //return -1;
+            return -1;
         end
 	endcase
 	return (result);
@@ -46,7 +56,7 @@ always @(negedge bfm.clk) begin
 
         if(bfm.data_out[54:53] == 2'b00 )begin
             result = {bfm.data_out[52:45],bfm.data_out[41:34],bfm.data_out[30:23],bfm.data_out[19:12]};	                
-            assert(bfm.result === predicted_result) begin
+            assert(result === predicted_result) begin
 	            `ifdef DEBUG
                 $display("Test passed - CALC OK");
 	            `endif
@@ -54,7 +64,7 @@ always @(negedge bfm.clk) begin
             else begin
 	            `ifdef DEBUG
             	$display("Test FAILED - CALC NOT OK");
-            	$display("Expected: %d  received: %d", bfm.expected, bfm.result);
+            	$display("Expected: %d  received: %d", predicted_result, result);
 	            `endif
                 test_result = "FAILED";
             end;
@@ -84,10 +94,10 @@ always @(negedge bfm.clk) begin
 		            end	                    	
                 endcase
             else begin
-	            `ifdef DEBUG
-                $display("Test FAILED - unexpected error");
-	            `endif
-                test_result = "FAILED";
+			        `ifdef DEBUG
+	                $display("Test FAILED - unexpected error %b", bfm.expected_error);
+		            `endif
+	                test_result = "FAILED";
             end;
         end          
     end

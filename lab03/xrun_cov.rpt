@@ -1,0 +1,27 @@
+*I,RUNLD: Successfully loaded run /home/student/jiwanicka/VDIC/lab03/cov_work/scope/lab03.
+*I,MERGL1: Merging Simulation Coverage ...
+----------------------------
+*I,MERGL1: Preparing target model ...
+*I,MERGL1: Reading model of primary run (cov_work/scope/lab03) as initial model: cov_work/scope/icc_06eb7f84_4b27314c.ucm
+*I,MERGL1: Target model generated successfully.
+*I,MERGL1: Projecting Simulation ucd data into the target model ...
+*I,MERGL2:   cov_work/scope/lab03:
+*I,MERGL3:       Data is projected in to the target model.
+*I,MERGL1: Writing output database cov_work/scope/merged_results:
+*I,MERGL2:   Model: cov_work/scope/merged_results/icc_06eb7f84_4b27314c.ucm
+*I,MERGL2:   Data : cov_work/scope/merged_results/icc_06eb7f84_4b27314c.ucd
+*I,MERGL1: No Specman coverage databases found in the runs.
+Total conflicts during target model creation: 0
+Total items not merged                      : 0
+Total runs not considered during target model creation: 0
+Total runs not merged                                 : 0
+*I,RUNLD: Successfully loaded run /home/student/jiwanicka/VDIC/lab03/cov_work/scope/merged_results.
+*W,REPDEP: This is a legacy report and no future enhancement is planned for this report. It is recommended that you use the 'report_metrics' command and generate a dynamic report.
+name                                     Overall Average      Overall Covered      Code Average         Code Covered         Fsm Average          Fsm Covered          Functional Average   Functional Covered   
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+top                                      n/a                  n/a                  n/a                  n/a                  n/a                  n/a                  n/a                  n/a                  
+|--bfm                                   82.72%               51.72% (165/319)     82.72%               51.72% (165/319)     n/a                  n/a                  n/a                  n/a                  
+|--tester_i                              96.09%               95.24% (380/399)     96.09%               95.24% (380/399)     n/a                  n/a                  n/a                  n/a                  
+|--coverage_i                            94.21%               85.96% (153/178)     88.43%               78.26% (90/115)      n/a                  n/a                  100.00%              100.00% (63/63)      
+|--scoreboard_i                          93.75%               88.46% (23/26)       87.50%               87.50% (21/24)       n/a                  n/a                  100.00%              100.00% (2/2)        
+|--DUT                                   98.21%               98.21% (55/56)       98.21%               98.21% (55/56)       n/a                  n/a                  n/a                  n/a                  

@@ -150,85 +150,65 @@ function bit [3:0] nextCRC4_D68(input [67:0] data_in);
   	end
 endfunction : nextCRC4_D68
 
-initial begin
+//---------------------------------
+function [2:0] expected_error(input [2:0] op_set);  //get packet with data 
+	if (op_set == ERROR_op) begin
+        bit [2:0] zero_ones;
+		zero_ones = 3'($random);
+        case(zero_ones)
+            3'b000:begin
+	            expected_error = 3'b011; //Error all 0
+	            op_set = get_valid_op();
+	            end
+            3'b001:begin
+	            expected_error = 3'b001; //Error OP
+	            end
+            3'b010:begin
+	            expected_error = 3'b010;  //Error CRC
+	            end
+            3'b100:begin
+	            expected_error = 3'b100; //Error Data
+            	end
+            3'b111:begin
+	            expected_error = 3'b111; //Error all 1
+	            op_set = get_valid_op();
+	            end
+            default:begin
+	            expected_error = 3'b110;
+	            end
+        endcase
+	end
+	else if (op_set == RST_op) begin
+		expected_error = 3'b110;
+		end
+	else  begin
+		expected_error = 3'b000;
+	end
+    return expected_error;
+endfunction : expected_error
 
-	//bit [54:0] data_out;
-	bit [31:0] expected, result; 
-	//bit [2:0] expected_error;
-	//bit [31:0] A,B;
-	//bit done;
+initial begin
+	
 	byte a;
-	//logic sin,sout;
-	//bit unsigned [98:0] Data;
-	//operation_t op_set;
+	bfm.reset_alu();
 	
-    bfm.reset_alu();
-	
-    repeat (10000) begin : tester_main
-        @(negedge bfm.clk);
+    repeat (100000) begin : tester_main
+
+        @(negedge bfm.clk);	    
         bfm.op_set 	   = get_op();	    
 	    bfm.expected_error = 3'b000;
 	    bfm.data_out = 55'b0;
 	    bfm.done = 1'b0;
-        case (bfm.op_set) 
-            RST_op: begin : case_rst_op
-                bfm.reset_alu();
-            end
-            default: begin : case_default
-	            if (bfm.op_set == ERROR_op) begin
-		            bit [2:0] zero_ones;
-    				zero_ones = 3'($random);
-		            case(zero_ones)
-			            3'b000:begin
-				            bfm.expected_error = 3'b011; //Error all 0
-				            bfm.op_set = get_valid_op();
-				            end
-			            3'b001:begin
-				            bfm.expected_error = 3'b001; //Error OP
-				            end
-			            3'b010:begin
-				            bfm.expected_error = 3'b010;  //Error CRC
-				            end
-			            3'b100:begin
-				            bfm.expected_error = 3'b100; //Error Data
-			            	end
-			            3'b111:begin
-				            bfm.expected_error = 3'b111; //Error all 1
-				            bfm.op_set = get_valid_op();
-				            end
-			            default:begin
-				            bfm.expected_error = 3'b110;
-				            end
-		            endcase
-	            end
-	           
-	            bfm.Data = get_packet(bfm.op_set,bfm.expected_error);
+         
+        bfm.expected_error = expected_error(bfm.op_set);
+        bfm.Data = get_packet(bfm.op_set,bfm.expected_error);
+        
+        bfm.send_data(bfm.Data, bfm.expected_error);
+        bfm.get_data(bfm.data_out);
+        		    
+		bfm.done = 1'b1;
+        @(negedge bfm.clk);
 
-	            if (bfm.expected_error == 3'b100) begin
-		            a = 11;
-	            	end
-	            else begin
-		            a = 0;
-	            end
-	            
-	            bfm.send_data(bfm.Data, bfm.op_set, bfm.expected_error, bfm.sin);
-			    `ifdef DEBUG
-				$display("%0t DEBUG: testingg %b %b %b", $time, bfm.sin, bfm.op_set, bfm.Data);
-				`endif
-				`ifdef DEBUG
-				$display("%0t DEBUG: testingg %b", $time, bfm.sout);
-				`endif
-				@(negedge bfm.sout);
-	            `ifdef DEBUG
-				$display("%0t DEBUG: sout %b", $time, bfm.sout);
-				`endif
-	            bfm.get_data(bfm.data_out, bfm.sout);
-	            		    
-				bfm.done = 1'b1;
-                @(negedge bfm.clk);
-		 
-            end            
-        endcase 
     end
     $finish;
 end

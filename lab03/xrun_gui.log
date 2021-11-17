@@ -1,0 +1,49 @@
+TOOL:	xrun	19.09-s003: Started on Nov 17, 2021 at 23:42:43 CET
+xrun
+	-F tb.f
+		-F ./dut.f
+			mtm_Alu.vp
+		alu_pkg.sv
+		alu_bfm.sv
+		tester.sv
+		coverage.sv
+		scoreboard.sv
+		top.sv
+	-v93
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	+nowarnCOVUTA
+	-xmlibdirname INCA_libs_gui
+	+access+r
+	+gui
+	+overwrite
+	-nocopyright
+	-l xrun_gui.log
+
+-------------------------------------
+Relinquished control to SimVision...
+xcelium> 
+xcelium> source /cad/XCELIUM1909/tools/xcelium/files/xmsimrc
+xcelium> database -open waves -into waves.shm -default
+Created default SHM database waves
+xcelium> probe -create -shm top.bfm.A top.bfm.B top.bfm.Data top.bfm.a top.bfm.clk top.bfm.data_out top.bfm.done top.bfm.expected top.bfm.expected_error top.bfm.op top.bfm.op_set top.bfm.result top.bfm.rst_n top.bfm.sin top.bfm.sout
+Created probe 1
+xcelium> run
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+WHAT THE FUCK
+xmsim: *E,ASRTST (./scoreboard.sv,73): (time 46320 NS) Assertion top.scoreboard_i.verify_result.__assert_2 has failed 
+46320 NS + 0 (Assertion output stop: top.scoreboard_i.verify_result.__assert_2 = failed)
+xcelium> ^C
+xcelium> exit
+Test FAILED.
+TOOL:	xrun	19.09-s003: Exiting on Nov 17, 2021 at 23:49:04 CET  (total: 00:06:21)

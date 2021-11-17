@@ -173,9 +173,10 @@ initial begin : coverage_block
 	flags   = new();
     forever begin : sample_cov
         @(posedge bfm.clk);
-        if(!bfm.rst_n) begin
+        if(bfm.done) begin
 	        Data      = bfm.Data;
         	op_set = bfm.op_set;
+	        expected_error = bfm.expected_error;	    
             oc.sample();
             c_00_FF.sample();
 	        flags.sample();
