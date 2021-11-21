@@ -1,0 +1,20 @@
+TOOL:	xrun	19.09-s003: Started on Nov 21, 2021 at 20:21:56 CET
+xrun
+	-compile
+	-l xrun_compile.log
+	-F tb.f
+		top.sv
+	-v93
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	-xmlibdirname INCA_libs
+	+overwrite
+	-nocopyright
+file: ./top.sv
+			$fscanf(fd, "%0s %0g %0g \n", shape_type, h, w);			
+			      |
+xmvlog: *W,NOSYST (./top.sv,128|9): System function '$fscanf' invoked as a task. Return value will be ignored.
+	module worklib.top:sv
+		errors: 0, warnings: 1
+TOOL:	xrun	19.09-s003: Exiting on Nov 21, 2021 at 20:21:57 CET  (total: 00:00:01)

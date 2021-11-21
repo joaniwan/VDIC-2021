@@ -1,0 +1,33 @@
+TOOL:	xrun	19.09-s003: Started on Nov 21, 2021 at 20:21:59 CET
+xrun
+	-F tb.f
+		top.sv
+	-v93
+	+nowarnDSEM2009
+	+nowarnDSEMEL
+	+nowarnCGDEFN
+	-xmlibdirname INCA_libs
+	+overwrite
+	-nocopyright
+	-l xrun_test_lab04part1.log
+Loading snapshot worklib.top:sv .................... Done
+xcelium> source /cad/XCELIUM1909/tools/xcelium/files/xmsimrc
+xcelium> run
+---RECTANGLE---
+Rectangle, h=1.2 ,w=4, area=4.8
+Rectangle, h=2 ,w=4, area=8
+Rectangle, h=12 ,w=14, area=168
+Total area: 180.8
+---SQUARE---
+Square,w=3.3, area=10.89
+Square,w=10, area=100
+Square,w=0.1, area=0.01
+Total area: 110.9
+---TRIANGLE---
+Triangle, h=3 ,w=2.3, area=3.45
+Triangle, h=3 ,w=3, area=4.5
+Triangle, h=13 ,w=13.1, area=85.15
+Total area: 93.1
+xmsim: *W,RNQUIE: Simulation is complete.
+xcelium> exit
+TOOL:	xrun	19.09-s003: Exiting on Nov 21, 2021 at 20:21:59 CET  (total: 00:00:00)
