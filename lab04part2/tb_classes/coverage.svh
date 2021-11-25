@@ -2,8 +2,6 @@ class coverage;
 	virtual alu_bfm bfm;
 	//import alu_pkg::*;
 	
-	
-
 	protected bit                  [98:0] Data;
 	protected bit [2:0] expected_error;
 	protected operation_t                op_set;
@@ -162,14 +160,14 @@ endfunction
 task execute();
 	forever begin : sample_cov
         @(posedge bfm.clk);
-        if(bfm.done) begin
+        //if(bfm.done ) begin
 	        Data      = bfm.Data;
         	op_set    = bfm.op_set;
 	        expected_error = bfm.expected_error;	    
             op_cov.sample();
             zeros_or_ones_on_ops.sample();
 	        op_flags.sample();
-        end
+        //end
     end : sample_cov
 endtask
 
