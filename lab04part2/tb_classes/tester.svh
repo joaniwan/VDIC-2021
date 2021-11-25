@@ -179,20 +179,24 @@ class tester;
 		bfm.reset_alu();
 		
 	    repeat (100000) begin : tester_main
-	
-	        @(negedge bfm.clk);	    
-	        bfm.op_set 	   = get_op();	    
-		    bfm.expected_error = 3'b000;
-		    bfm.data_out = 55'b0;
-		    bfm.done = 1'b0;
-	        bfm.expected_error = expected_error(bfm.op_set);
-	        bfm.Data = get_packet(bfm.op_set,bfm.expected_error);
-	        bfm.send_data(bfm.Data, bfm.expected_error);
-	        bfm.get_data(bfm.data_out);
-	        		    
-			bfm.done = 1'b1;
-	        @(negedge bfm.clk);
-	
+			//case (bfm.op_set) 
+	            ///RST_op: begin : case_rst_op
+	                //bfm.reset_alu();
+	            //end
+	            //default: begin : case_default
+			        @(negedge bfm.clk);	    
+			        bfm.op_set 	   = get_op();	    
+				    bfm.expected_error = 3'b000;
+				    bfm.data_out = 55'b0;
+				    bfm.done = 1'b0;
+			        bfm.expected_error = expected_error(bfm.op_set);
+			        bfm.Data = get_packet(bfm.op_set,bfm.expected_error);
+			        bfm.send_data(bfm.Data, bfm.expected_error);
+			        bfm.get_data(bfm.data_out);			        		    
+					bfm.done = 1'b1;
+			        @(negedge bfm.clk);					                       
+	            //end            
+	        //endcase	
 	    end
 	    $finish;
 	endtask
