@@ -33,7 +33,7 @@ class rectangle extends shape;
 	
 endclass
 
-class square extends shape; 
+class square extends rectangle; 
 		
 	function new(real side);
 		super.new(.h(side),.w(side));
@@ -43,9 +43,9 @@ class square extends shape;
 		$display("Square,w=%0g, area=%0g",width, get_area());
 	endfunction
 
-	function real get_area();
-		return width*height;
-	endfunction
+	//function real get_area();
+		//return width*height;
+	//endfunction
 	
 endclass
 
