@@ -36,7 +36,7 @@ virtual class base_tester extends uvm_component;
 
         bfm.reset_alu();
 
-        repeat (100000) begin : random_loop
+        repeat (10000) begin : random_loop
              @(negedge bfm.clk);	
 		    bfm.op_set 	   = get_op();	  
 		    bfm.expected_error = 3'b000;

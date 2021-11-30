@@ -15,10 +15,12 @@ import uvm_pkg::*;
 `include "base_tester.svh"
 `include "random_tester.svh"
 `include "add_tester.svh"   
+`include "minmax_tester.svh"
 `include "scoreboard.svh"
 `include "env.svh"
 `include "random_test.svh"
 `include "add_test.svh"
+`include "minmax_test.svh" 
 	
 endpackage : alu_pkg
    

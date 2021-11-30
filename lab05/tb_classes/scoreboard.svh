@@ -104,6 +104,10 @@ task run_phase(uvm_phase phase);
 	end 
 endtask
 
+function void report_phase(uvm_phase phase);
+	result();
+endfunction
+
 endclass : scoreboard
 
 
