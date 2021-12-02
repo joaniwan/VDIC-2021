@@ -7,8 +7,6 @@
 *I,MERGL1: Projecting Simulation ucd data into the target model ...
 *I,MERGL2:   cov_work/scope/random_test:
 *I,MERGL3:       Data is projected in to the target model.
-*I,MERGL2:   cov_work/scope/add_test:
-*I,MERGL3:       Data is projected in to the target model.
 *I,MERGL2:   cov_work/scope/minmax_test:
 *I,MERGL3:       Data is projected in to the target model.
 *I,MERGL1: Writing output database cov_work/scope/merged_results:
