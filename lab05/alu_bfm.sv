@@ -57,7 +57,7 @@ task send_data(input bit [98:0] Data, input bit [2:0] expected_error);
 endtask : send_data
 
 task get_data(output bit [54:0] data_out);
-	@(negedge bfm.sout);
+	@(negedge sout);
 	for(int j = $size(data_out)-1; j >= 0 ; j--) begin 
 		@(negedge clk);
 		data_out[j] <= sout;					

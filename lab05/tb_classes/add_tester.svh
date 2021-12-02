@@ -6,7 +6,7 @@ class add_tester extends random_tester;
         super.new(name, parent);
     endfunction : new
 
-	protected function operation_t get_op();
+	function operation_t get_op();
 	    bit [2:0] op_choice;
 	    return ADD_op;
 	endfunction : get_op

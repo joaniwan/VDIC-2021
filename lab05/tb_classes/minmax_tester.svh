@@ -6,7 +6,7 @@ class minmax_tester extends random_tester;
         super.new(name, parent);
     endfunction : new
 
-	protected function byte get_data();
+	function byte get_data();
 	    bit zero_ones;
 	    zero_ones = 1'($random);
 	    if (zero_ones == 1'b0)
@@ -17,7 +17,7 @@ class minmax_tester extends random_tester;
 			return 8'($random);
 	endfunction : get_data
 	
-	protected function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);  //get packet with data 
+	function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);  //get packet with data 
 		bit [10:0] Data1,Data2,Data3,Data4,Data5,Data6,Data7,Data8,Data9;
 		bit zero_ones;
 	    Data1      = get_data_packet(); //TODO it better

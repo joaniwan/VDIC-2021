@@ -8,7 +8,7 @@ class random_tester extends base_tester;
         super.new(name, parent);
     endfunction : new
 	
-	protected function operation_t get_op();
+	function operation_t get_op();
 	    bit [2:0] op_choice;
 	    op_choice = $random;
 	    case (op_choice)
@@ -23,7 +23,7 @@ class random_tester extends base_tester;
 	    endcase // case (op_choice)
 	endfunction : get_op
 
-	 protected function operation_t get_valid_op();
+	 function operation_t get_valid_op();
 	    bit [2:0] op_choice;
 	    op_choice = $random;
 	    case (op_choice)
@@ -39,7 +39,7 @@ class random_tester extends base_tester;
 	endfunction : get_valid_op
 
 
-	protected function byte get_data();
+	function byte get_data();
 	    bit [1:0] zero_ones;
 	    zero_ones = 2'($random);
 	    if (zero_ones == 2'b00)
@@ -51,14 +51,14 @@ class random_tester extends base_tester;
 	endfunction : get_data
 
 
-	protected function [10:0] get_data_packet();  //get packet with data 
+	function [10:0] get_data_packet();  //get packet with data 
 		bit[7:0] data;
 		data = get_data();
 	    return {2'b00, data, 1'b1};
 	endfunction : get_data_packet
 	
 	
-	protected function [10:0] get_ctl_packet(input [31:0] B, input [31:0] A, input [2:0] op);  //get packet with ctl 
+	function [10:0] get_ctl_packet(input [31:0] B, input [31:0] A, input [2:0] op);  //get packet with ctl 
 		bit[3:0] crc;
 		bit[67:0] xdata;
 		xdata = {B,A,1'b1,op};
@@ -67,7 +67,7 @@ class random_tester extends base_tester;
 	endfunction : get_ctl_packet
 	
 	
-	protected function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);  //get packet with data 
+	function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);  //get packet with data 
 		bit [10:0] Data1,Data2,Data3,Data4,Data5,Data6,Data7,Data8,Data9;
 	    Data1      = get_data_packet(); //TODO it better
 	    Data2      = get_data_packet();
@@ -122,7 +122,7 @@ class random_tester extends base_tester;
 	endfunction : get_packet
 
 	
-	protected function bit [3:0] nextCRC4_D68(input [67:0] data_in);   
+	function bit [3:0] nextCRC4_D68(input [67:0] data_in);   
 	    reg [67:0] d;
 	    reg [3:0] c;
 	    reg [3:0] newcrc;
@@ -137,7 +137,7 @@ class random_tester extends base_tester;
 	  	end
 	endfunction : nextCRC4_D68
 
-	protected function [2:0] expected_error(input [2:0] op_set);  //get packet with data 
+	function [2:0] expected_error(input [2:0] op_set);  //get packet with data 
 		if (op_set == ERROR_op) begin
 	        bit [2:0] zero_ones;
 			zero_ones = 3'($random);
