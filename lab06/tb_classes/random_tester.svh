@@ -4,7 +4,7 @@ class random_tester extends base_tester;
 	//virtual alu_bfm bfm;
 	
 	
-	virtual function operation_t get_op();
+	protected virtual function operation_t get_op();
 	    bit [2:0] op_choice;
 	    op_choice = $random;
 	    case (op_choice)
@@ -19,7 +19,7 @@ class random_tester extends base_tester;
 	    endcase // case (op_choice)
 	endfunction : get_op
 
-	 virtual function operation_t get_valid_op();
+	 protected virtual function operation_t get_valid_op();
 	    bit [2:0] op_choice;
 	    op_choice = $random;
 	    case (op_choice)
@@ -35,7 +35,7 @@ class random_tester extends base_tester;
 	endfunction : get_valid_op
 
 
-	virtual function byte get_data();
+	protected virtual function byte get_data();
 	    bit [1:0] zero_ones;
 	    zero_ones = 2'($random);
 	    if (zero_ones == 2'b00)
@@ -47,14 +47,14 @@ class random_tester extends base_tester;
 	endfunction : get_data
 
 
-	virtual function [10:0] get_data_packet();  //get packet with data 
+	protected virtual function [10:0] get_data_packet();  //get packet with data 
 		bit[7:0] data;
 		data = get_data();
 	    return {2'b00, data, 1'b1};
 	endfunction : get_data_packet
 	
 	
-	virtual function [10:0] get_ctl_packet(input [31:0] B, input [31:0] A, input [2:0] op);  //get packet with ctl 
+	protected virtual function [10:0] get_ctl_packet(input [31:0] B, input [31:0] A, input [2:0] op);  //get packet with ctl 
 		bit[3:0] crc;
 		bit[67:0] xdata;
 		xdata = {B,A,1'b1,op};
@@ -63,7 +63,7 @@ class random_tester extends base_tester;
 	endfunction : get_ctl_packet
 	
 	
-	virtual function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);  //get packet with data 
+	protected virtual function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);  //get packet with data 
 		bit [10:0] Data1,Data2,Data3,Data4,Data5,Data6,Data7,Data8,Data9;
 	    Data1      = get_data_packet(); //TODO it better
 	    Data2      = get_data_packet();
@@ -118,7 +118,7 @@ class random_tester extends base_tester;
 	endfunction : get_packet
 
 	
-	virtual function bit [3:0] nextCRC4_D68(input [67:0] data_in);   
+	protected virtual function bit [3:0] nextCRC4_D68(input [67:0] data_in);   
 	    reg [67:0] d;
 	    reg [3:0] c;
 	    reg [3:0] newcrc;
@@ -133,7 +133,7 @@ class random_tester extends base_tester;
 	  	end
 	endfunction : nextCRC4_D68
 
-	virtual function [2:0] expected_error(input [2:0] op_set);  //get packet with data 
+	protected virtual function [2:0] expected_error(input [2:0] op_set);  //get packet with data 
 		if (op_set == ERROR_op) begin
 	        bit [2:0] zero_ones;
 			zero_ones = 3'($random);
