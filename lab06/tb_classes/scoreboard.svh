@@ -4,7 +4,7 @@ class scoreboard extends uvm_subscriber #(shortint);
 	virtual alu_bfm bfm;
 	uvm_tlm_analysis_fifo #(command_s) cmd_f;
 
-	string test_result = "PASSED";
+	protected string test_result = "PASSED";
 	
 	function new (string name, uvm_component parent);
         super.new(name, parent);
@@ -14,7 +14,7 @@ class scoreboard extends uvm_subscriber #(shortint);
         cmd_f = new ("cmd_f", this);
     endfunction : build_phase
 	
-	function logic [31:0] get_expected(bit [98:0] Data, operation_t op_set); 
+	protected function logic [31:0] get_expected(bit [98:0] Data, operation_t op_set); 
 		bit [31:0] A,B,result;
 		B = {Data[96:89],Data[85:78],Data[74:67],Data[63:56]};
 		A = {Data[52:45],Data[41:34],Data[30:23],Data[19:12]};
@@ -42,7 +42,7 @@ class scoreboard extends uvm_subscriber #(shortint);
 		return (result);
 	endfunction
 	
-	function void result();
+	protected function void result();
 		$display("Test %s.",test_result);
 	endfunction
 
