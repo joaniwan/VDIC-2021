@@ -98,7 +98,7 @@ function void write (shortint t);
             endcase
         else begin
 		        `ifdef DEBUG
-                $display("Test FAILED - unexpected error %b", cmd.expected_error);
+                $display("Test FAILED - unexpected error %b %b %b", cmd.expected_error, cmd.op_set, cmd.data_out);
 	            `endif
                 test_result = "FAILED";
         end;

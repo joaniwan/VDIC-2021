@@ -21,6 +21,7 @@ virtual class base_tester extends uvm_component;
 	protected pure virtual function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);
     protected pure virtual function bit [3:0] nextCRC4_D68(input [67:0] data_in);
     protected pure virtual function [2:0] expected_error(input [2:0] op_set);
+    protected pure virtual function [98:0] case_expected_error(input [10:0] Data1,input [10:0] Data2, input [10:0] Data3,input [10:0] Data4,input [10:0] Data5,input [10:0] Data6,input [10:0] Data7,input [10:0] Data8,input [2:0] op_set,input [2:0] expected_error);
     
     task run_phase(uvm_phase phase);
 	    
