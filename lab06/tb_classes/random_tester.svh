@@ -62,8 +62,16 @@ class random_tester extends base_tester;
 	    return {2'b01,1'b0, op, crc, 1'b1};
 	endfunction : get_ctl_packet
 	
-	protected virtual function [98:0] case_expected_error(input [10:0] Data1,input [10:0] Data2, input [10:0] Data3,input [10:0] Data4,input [10:0] Data5,input [10:0] Data6,input [10:0] Data7,input [10:0] Data8,input [2:0] op_set,input [2:0] expected_error);
-		bit [10:0] Data9;
+	protected virtual function [98:0] case_expected_error(input [2:0] op_set,input [2:0] expected_error);
+		bit [10:0] Data1,Data2,Data3,Data4,Data5,Data6,Data7,Data8,Data9;
+	    Data1      = get_data_packet(); //TODO it better
+	    Data2      = get_data_packet();
+	    Data3      = get_data_packet();
+	    Data4      = get_data_packet();
+	    Data5      = get_data_packet();
+	    Data6      = get_data_packet();
+	    Data7      = get_data_packet();
+	    Data8      = get_data_packet();
 		case(expected_error)   //TODO it better
 	        3'b000:begin //No error
 	            Data9      = get_ctl_packet({Data1[8:1], Data2[8:1], Data3[8:1], Data4[8:1]}, {Data5[8:1], Data6[8:1], Data7[8:1], Data8[8:1]}, op_set);
@@ -109,16 +117,7 @@ class random_tester extends base_tester;
 	endfunction
 	
 	protected virtual function [98:0] get_packet(input [2:0] op_set, input [2:0] expected_error);  //get packet with data 
-		bit [10:0] Data1,Data2,Data3,Data4,Data5,Data6,Data7,Data8,Data9;
-	    Data1      = get_data_packet(); //TODO it better
-	    Data2      = get_data_packet();
-	    Data3      = get_data_packet();
-	    Data4      = get_data_packet();
-	    Data5      = get_data_packet();
-	    Data6      = get_data_packet();
-	    Data7      = get_data_packet();
-	    Data8      = get_data_packet();
-		return   case_expected_error(Data1,Data2,Data3,Data4,Data5,Data6,Data7,Data8,op_set,expected_error);  
+		return   case_expected_error(op_set,expected_error);  
 	endfunction : get_packet
 
 	
