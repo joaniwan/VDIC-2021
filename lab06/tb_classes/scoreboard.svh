@@ -1,4 +1,4 @@
-class scoreboard extends uvm_subscriber #(shortint);	
+class scoreboard extends uvm_subscriber #(longint);	
 	`uvm_component_utils(scoreboard)
 	
 	virtual alu_bfm bfm;
@@ -46,7 +46,7 @@ class scoreboard extends uvm_subscriber #(shortint);
 		$display("Test %s.",test_result);
 	endfunction
 
-function void write (shortint t); 	    
+function void write (longint t); 	    
     int predicted_result, result;
 	command_s cmd;
 	//cmd.Data = 0;
@@ -57,11 +57,12 @@ function void write (shortint t);
 	            $fatal(1, "Missing command in self checker");
 	while(cmd.op_set == RST_op); 
     predicted_result = get_expected(cmd.Data, cmd.op_set);
-    if(cmd.data_out[54:53] == 2'b00 )begin
-        result = {cmd.data_out[52:45],cmd.data_out[41:34],cmd.data_out[30:23],cmd.data_out[19:12]};	  
+    if(t[54:53] == 2'b00 )begin
+        result = {t[52:45],t[41:34],t[30:23],t[19:12]};	  
         assert(result === predicted_result) begin
             `ifdef DEBUG
             $display("Test passed - CALC OK");
+	        $display("Expected: %d  received: %d", predicted_result, result);
             `endif
         end
         else begin
@@ -74,7 +75,7 @@ function void write (shortint t);
     end
     else begin
         assert(cmd.expected_error != 3'b000)
-            case(cmd.data_out[52:45])
+            case(t[52:45])
                 8'b11001001:begin
 	                `ifdef DEBUG
 	                $display("Test passed - ERROR DATA");
@@ -98,7 +99,7 @@ function void write (shortint t);
             endcase
         else begin
 		        `ifdef DEBUG
-                $display("Test FAILED - unexpected error %b %b %b", cmd.expected_error, cmd.op_set, cmd.data_out);
+                $display("Test FAILED - unexpected error %b %b %b", cmd.expected_error, cmd.op_set, t);
 	            `endif
                 test_result = "FAILED";
         end;

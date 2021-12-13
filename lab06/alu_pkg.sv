@@ -14,7 +14,7 @@ import uvm_pkg::*;
 	typedef struct packed {
 	        bit [98:0] Data;
 			bit [2:0] expected_error;
-			bit [54:0] data_out;
+			//bit [54:0] data_out;
 			bit done;
 			bit clk;
 			bit rst_n;

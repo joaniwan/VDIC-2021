@@ -75,8 +75,7 @@ task send_op(input command_s command);
         end
         default: begin : case_default			            			          				    
 	        send_data(command.Data,command.expected_error);	        
-	        get_data(command.data_out);	
-	        data_out = command.data_out;
+	        get_data(data_out);	
 			done = 1'b1;		        
         end            
 	endcase	
@@ -94,7 +93,7 @@ always @(posedge clk) begin : op_monitor
             command.Data  = Data;
             command.expected_error  = expected_error ;
 	        command.op_set = op_set;
-	        command.data_out = data_out;
+	        //command.data_out = data_out;
             command_monitor_h.write_to_monitor(command);
             in_command = command.op_set; 
         end : new_command

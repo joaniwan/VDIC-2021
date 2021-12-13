@@ -15,8 +15,8 @@
 # cdnshelp &
 
 #------------------------------------------------------------------------------
-# The list of tests; in GUI mode only the first test is started.
-TESTS=(random_test minmax_test);
+# The list of tests; in GUI mode only the first test is started.minmax_test
+TESTS=(random_test );
 #------------------------------------------------------------------------------
 # Default .f file
 FFILE="tb.f"
