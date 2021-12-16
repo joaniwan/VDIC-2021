@@ -119,10 +119,7 @@ class tester extends uvm_component;
         repeat (10000) begin : random_loop
 	        
 			assert(command.randomize());
-		    command.Data = get_packet(command.Data, command.op_set,command.expected_error);		
-			`ifdef DEBUG
-		    $display("%0t tester %b %b %b", $time, command.Data, command.op_set, command.expected_error);
-		    `endif			
+		    command.Data = get_packet(command.Data, command.op_set,command.expected_error);				
 			command_port.put(command);
         end : random_loop        
         #500

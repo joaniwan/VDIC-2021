@@ -8,7 +8,7 @@ bit                rst_n;
 logic                sin;
 logic        	   sout;
 operation_t        op_set;
-	operation_t        op;
+operation_t        op;
 	
 
 bit [98:0] Data, Data1;
@@ -22,7 +22,6 @@ byte a;
 command_monitor command_monitor_h;
 result_monitor result_monitor_h;
 	
-//assign op = op_set;
 
 initial begin
     clk = 0;
@@ -37,9 +36,6 @@ task reset_alu();
     rst_n = 1'b0;
 	done = 1'b0;
   	`uvm_info("ALU_BFM", "reset_alu", UVM_HIGH) 
-  	 `ifdef DEBUG
-	$display("%0t reset", $time);
-	`endif
     @(negedge clk);
     rst_n = 1'b1;
 	
@@ -76,9 +72,6 @@ task send_op(input bit [98:0] Data, input bit [2:0] expected_error, input operat
 	Data1 = Data;
 	expected_error1 = expected_error;
 	op = op_set;
- `ifdef DEBUG
-    $display("%0t send_op %b %b %b", $time, Data, op_set, expected_error);
-    `endif
 	case (op_set) 
         RST_op: begin : case_rst_op
             reset_alu();		        
@@ -99,9 +92,6 @@ always @(posedge clk) begin : op_monitor
     if (done) begin : start_high 
         if (!in_command) begin : new_command
 	        @(negedge clk)
-	        `ifdef DEBUG
-		    $display("%0t op_monitor %b %b %b", $time, Data1, op, expected_error1);
-		    `endif
             command_monitor_h.write_to_monitor(Data1,expected_error1,op);
             in_command = op_set; 
         end : new_command
@@ -125,10 +115,7 @@ initial begin : result_monitor_thread
         if (done) begin
 	        @(negedge clk);
 	        result = {data_out[52:45],data_out[41:34],data_out[30:23],data_out[19:12]};
-	        data_out = data_out;
-			`ifdef DEBUG
-		    $display("%0t result_monitor_thread %b %b", $time, result, data_out);
-		    `endif	        
+	        data_out = data_out;        
             result_monitor_h.write_to_monitor(result, data_out);
         	//done = 1'b0;
         end 

@@ -24,9 +24,6 @@ class driver extends uvm_component;
         forever begin : command_loop	
 	        
             command_port.get(command);
-			`ifdef DEBUG
-		    $display("%0t driver %b %b %b", $time, command.Data, command.op_set, command.expected_error);
-		    `endif	
             bfm.send_op(command.Data,command.expected_error,command.op_set);
 
         end : command_loop

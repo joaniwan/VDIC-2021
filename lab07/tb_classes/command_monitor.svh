@@ -22,9 +22,6 @@ class command_monitor extends uvm_component;
         `uvm_info("COMMAND MONITOR",$sformatf("MONITOR: Data: %b  expected_error: %b  op_set: %b",
                 Data, expected_error, op_set), UVM_HIGH);
         cmd    = new("cmd");
-	    `ifdef DEBUG
-	    $display("%0t command_monitor %b %b %b", $time, Data, op_set, expected_error);
-	    `endif
         cmd.Data  = Data;
         cmd.expected_error  = expected_error;
         cmd.op_set = op_set;

@@ -51,13 +51,11 @@ class scoreboard extends uvm_subscriber #(result_transaction);
 	        ADD_op : predicted.result = A + B;
 	        SUB_op : predicted.result = B - A;
 			RST_op : begin 
-				`ifdef DEBUG
-				$display("%0t Reset operation", $time);
-				`endif
+				`uvm_info("GET EXPECTED", "RST_op", UVM_HIGH)
 			end
 	        default: begin
-	            $display("%0t INTERNAL ERROR. get_expected: unexpected case argument: %b", $time, cmd.op_set);
-		        tr = TEST_FAILED;
+				`uvm_error("GET EXPECTED", "Internal error - unexpected op code")
+				tr = TEST_FAILED;
 	            //return -1;
 	        end
 		endcase
@@ -75,10 +73,7 @@ function void write (result_transaction t);
 	        end	        
 	while(cmd.op_set == RST_op); 
 
-	`ifdef DEBUG
-    $display("%0t scoreboard %b %b %b", $time, cmd.Data, cmd.op_set, cmd.expected_error);
-    `endif	
-		    
+
     predicted = get_expected(cmd);
 	data_str  = { cmd.convert2string(),
             " ==>  Actual " , t.convert2string(),
@@ -96,30 +91,20 @@ function void write (result_transaction t);
         if(cmd.expected_error != 3'b000)
             case(t.data_out[52:45])
                 8'b11001001:begin
-	                `ifdef DEBUG
-	                $display("Test passed - ERROR DATA");
-	                `endif
+	                `uvm_info("TEST", "Test passed - ERROR DATA", UVM_HIGH)
                 end
                 8'b10100101:begin
-	                `ifdef DEBUG
-	                $display("Test passed - ERROR CRC");
-	                `endif
+	                `uvm_info("TEST", "Test passed - ERROR CRC", UVM_HIGH)
                 end
                 8'b10010011:begin
-	                `ifdef DEBUG
-	                $display("Test passed - ERROR OP CODE");
-	                `endif
+	                `uvm_info("TEST", "Test passed - ERROR OP CODE", UVM_HIGH)
                 end
                 default: begin
-	                `ifdef DEBUG
-	                $display("Test passed - UNKNOWN ERROR");
-	                `endif
+	                `uvm_info("TEST", "Test passed - UNKNOWN ERROR", UVM_HIGH)
 	            end	                    	
             endcase
         else begin
-		        `ifdef DEBUG
-                $display("Test FAILED - unexpected error %b %b %b", cmd.expected_error, cmd.op_set, t.data_out);
-	            `endif
+		        `uvm_error("TEST", "Test FAILED - unexpected error")
                 tr = TEST_FAILED;
         end;
     end;          
