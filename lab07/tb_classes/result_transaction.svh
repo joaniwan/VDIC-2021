@@ -27,7 +27,7 @@ class result_transaction extends uvm_transaction;
         assert($cast(copied_transaction_h,rhs)) else
             `uvm_fatal("RESULT TRANSACTION","Failed cast in do_copy");
         result = copied_transaction_h.result;
-        //data_out = copied_transaction_h.data_out;
+        data_out = copied_transaction_h.data_out;
     endfunction : do_copy
 
     function string convert2string();
