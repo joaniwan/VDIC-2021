@@ -21,7 +21,7 @@ class minmax_command extends random_command;
 		Data[52:45] ==  8'hFF &&  
 	    Data[41:34] ==  8'hFF && 
 	    Data[30:23] ==  8'hFF &&  
-	    Data[19:12] ==  8'hFF; };
+	    Data[19:12] ==  8'hFF; }
     
 //------------------------------------------------------------------------------
 // constructor
