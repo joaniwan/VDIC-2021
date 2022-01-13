@@ -31,8 +31,7 @@ class minmax_sequence extends uvm_sequence #(sequence_item);
 //         start_item(req);
 //         assert(req.randomize());
 //         finish_item(req);
-            //`uvm_rand_send(req)
-            `uvm_do_with(req, {
+            `uvm_rand_send_with(req, {
 			    Data[96:89] ==  8'h0 && 
 				Data[85:78] ==  8'h0 && 
 				Data[74:67] ==  8'h0 &&  
